@@ -1,12 +1,10 @@
-console.log("Google Image Downloader Started");
+console.log("Tabs Auto Close");
 browser.browserAction.onClicked.addListener(onButtonClickedFunction);
 browser.browserAction.setIcon({path: browser.extension.getURL("icons/icon200disabled.png")});
 var isDisabled=true;
 var checkerFunction;
-//setInterval(checkAllTabs,1000);
-//checkAllTabs();
 
-function DisplayNotification(title= "Video Repeater",message="This Tab will be get closed",iconUrl=browser.extension.getURL("icons/icon200.png")){
+function DisplayNotification(closingTabTask,title= "Video Repeater",message="This Tab will be get closed",iconUrl=browser.extension.getURL("icons/icon200.png")){
  
   var notificationName="temp-notification"+ Date.now();
       browser.notifications.create("notificationName",{
@@ -14,6 +12,12 @@ function DisplayNotification(title= "Video Repeater",message="This Tab will be g
         "iconUrl":iconUrl,
         "title": title,
         "message": message
+        
+      });
+      
+      browser.notifications.onClicked.addListener(function(notificationName) {
+        console.log('Notification ' + notificationName + ' was clicked by the user');
+        clearInterval(closingTabTask);
       });
       setTimeout(function(){ browser.notifications.clear("temp-notification");}, 4000);
 }
@@ -29,11 +33,15 @@ function CheckTabValidity(tabInfo) {
   console.log(tabInfo.title+" was last accessed before : "+timePassedSinceLastUsage);
   if(timePassedSinceLastUsage>1)
     { 
-      DisplayNotification(tabInfo.title,tabInfo.title+ " tab will close in 1 min, take a peek at it in order to cancel autoclose");
+      var closingTabTask=setTimeout(function(){
+       console.log("Closing Tab " + tabInfo.title)
+        //browser.tabs.remove(tabInfo.id) ;
+      },60000);
+
+      DisplayNotification(closingTabTask,tabInfo.title,tabInfo.title+ " tab will close in 1 min, take a peek at it in order to cancel autoclose");
+
     }
-  if(timePassedSinceLastUsage>2){
-      console.log("Closing Tab");
-    }
+  
 }
 
 
@@ -62,15 +70,12 @@ function checkAllTabs(){
 function onButtonClickedFunction(){ 
   if(isDisabled){
     browser.browserAction.setIcon({path: browser.extension.getURL("icons/icon200.png")});
-    // checkAllTabs();
-    checkerFunction= setInterval(checkAllTabs,1000);
-
+    checkerFunction= setInterval(checkAllTabs,10000);
   }
   else{
     browser.browserAction.setIcon({path: browser.extension.getURL("icons/icon200disabled.png")});
     clearInterval(checkerFunction);
   }
-  //setInterval(checkAllTabs,1000);
   isDisabled=!isDisabled;
   return;
   }
