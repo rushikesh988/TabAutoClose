@@ -1,6 +1,10 @@
-
+console.log("Google Image Downloader Started");
+browser.browserAction.onClicked.addListener(onButtonClickedFunction);
+browser.browserAction.setIcon({path: browser.extension.getURL("icons/icon200disabled.png")});
+var isDisabled=true;
+var checkerFunction;
 //setInterval(checkAllTabs,1000);
-checkAllTabs();
+//checkAllTabs();
 
 function DisplayNotification(title= "Video Repeater",message="This Tab will be get closed",iconUrl=browser.extension.getURL("icons/icon200.png")){
  
@@ -25,7 +29,7 @@ function CheckTabValidity(tabInfo) {
   console.log(tabInfo.title+" was last accessed before : "+timePassedSinceLastUsage);
   if(timePassedSinceLastUsage>1)
     { 
-      DisplayNotification("Test","This tab will close in 1 min, take a peek at it in order to cancel autoclose");
+      DisplayNotification(tabInfo.title,tabInfo.title+ " tab will close in 1 min, take a peek at it in order to cancel autoclose");
     }
   if(timePassedSinceLastUsage>2){
       console.log("Closing Tab");
@@ -53,3 +57,21 @@ function checkAllTabs(){
   var querying = browser.tabs.query({currentWindow: true});
   querying.then(getInfoForTab, onError);
 }
+
+
+function onButtonClickedFunction(){ 
+  if(isDisabled){
+    browser.browserAction.setIcon({path: browser.extension.getURL("icons/icon200.png")});
+    // checkAllTabs();
+    checkerFunction= setInterval(checkAllTabs,1000);
+
+  }
+  else{
+    browser.browserAction.setIcon({path: browser.extension.getURL("icons/icon200disabled.png")});
+    clearInterval(checkerFunction);
+  }
+  //setInterval(checkAllTabs,1000);
+  isDisabled=!isDisabled;
+  return;
+  }
+ 
