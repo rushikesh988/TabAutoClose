@@ -1,0 +1,43 @@
+{     "background": { "scripts": ["TabMonitor.js"] },
+      "manifest_version": 2,
+      "name": "Tab Auto Close",
+      "author": "Rushikesh Tade",
+      "developer": {
+        "name": "Rushikesh Tade",
+        "url": "https://github.com/rushikesh988/"
+      },
+      "version": "0.1",
+      "description": "Downloads full sized images in Google Images.",
+      "homepage_url": "https://github.com/rushikesh988/TabAutoClose",
+      "icons": {
+        "200": "icons/icon200.png",
+        "48": "icons/icon48.png",
+        "96": "icons/icon96.png",
+        "64": "icons/icon64.png",
+        "32": "icons/icon32.png"
+      },
+      
+      "options_ui": {
+        "page": "options.html",
+        "browser_style": true
+      },
+
+      "permissions": [
+        "notifications",
+        "tabs",
+        "<all_urls>"
+      ],
+
+      "browser_action": {
+        "default_icon": "icons/icon32.png",
+        "default_title": "Tab Auto Close"
+      },
+
+      "applications": {
+        "gecko": {
+           "id": "rushikesh988-2@gmail.com"
+        }
+     },
+
+     
+    }
