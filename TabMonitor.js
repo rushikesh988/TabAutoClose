@@ -37,7 +37,7 @@ function getInfoForTab(tabs) {
     var closingTabTask=setTimeout(function(){
              //console.log("Closing "+ i + " Tabs" );
               browser.tabs.remove(tabIdsToClose) ;
-            },10000);
+            },60000);
 
     var notificationName="temp-notification"+ Date.now();
     browser.notifications.create("notificationName",{
