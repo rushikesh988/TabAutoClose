@@ -25,7 +25,8 @@
       "permissions": [
         "notifications",
         "tabs",
-        "<all_urls>"
+        "<all_urls>",
+        "storage"
       ],
 
       "browser_action": {

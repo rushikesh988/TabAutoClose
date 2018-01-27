@@ -1,25 +1,24 @@
 function saveOptions(e) {
-    browser.storage.sync.set({
-        originalNames: document.querySelector("#originalNames").value
-    });
-    e.preventDefault();
-  }
-  
-  function restoreOptions() {
-    var gettingItem = browser.storage.sync.get('originalNames');
-    console.log("getting Items");
-    gettingItem.then((res) => {
-      if((res.originalNames || "1")=="1"){
-        document.querySelector("#originalNames")[0].checked = true;
+  e.preventDefault();
+  browser.storage.local.set({
+    noOfMinutesToAutoClose: document.querySelector("#noOfMinutesToAutoClose").value,
+    autoStart: document.querySelector("#autoStart").checked
+  });
 
-      }
-    else{
-        document.querySelector("#originalNames")[1].checked = true;
-    }
-
-    });
+}
+function restoreOptions() {
+  function setCurrentChoice(result) {
+    document.querySelector("#noOfMinutesToAutoClose").value = result.noOfMinutesToAutoClose || "60";
+    document.querySelector("#autoStart").checked =(((result.autoStart==undefined)? false:true))? result.autoStart :false; ;
   }
-  
-  document.addEventListener('DOMContentLoaded', restoreOptions);
-  document.querySelector("form").addEventListener("submit", saveOptions);
-  
+
+  function onError(error) {
+    console.log(`Error: ${error}`);
+  }
+
+  var gettingNoOfMinutes = browser.storage.local.get();
+  gettingNoOfMinutes.then(setCurrentChoice, onError);
+}
+
+document.addEventListener("DOMContentLoaded", restoreOptions);
+document.querySelector("form").addEventListener("submit", saveOptions);
