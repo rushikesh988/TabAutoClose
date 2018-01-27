@@ -4,10 +4,10 @@
       "author": "Rushikesh Tade",
       "developer": {
         "name": "Rushikesh Tade",
-        "url": "https://github.com/rushikesh988/"
+        "url": "https://github.com/rushikesh988/TabAutoClose"
       },
       "version": "1.0",
-      "description": "Downloads full sized images in Google Images.",
+      "description": "Auto Close your unused tabs.",
       "homepage_url": "https://github.com/rushikesh988/TabAutoClose",
       "icons": {
         "200": "icons/icon200.png",
@@ -36,7 +36,7 @@
 
       "applications": {
         "gecko": {
-           "id": "rushikesh988-2@gmail.com"
+           "id": "rushikesh988-3@gmail.com"
         }
      }
 

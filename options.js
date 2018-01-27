@@ -9,7 +9,7 @@ function saveOptions(e) {
 function restoreOptions() {
   function setCurrentChoice(result) {
     document.querySelector("#noOfMinutesToAutoClose").value = result.noOfMinutesToAutoClose || "60";
-    document.querySelector("#autoStart").checked =(((result.autoStart==undefined)? false:true))? result.autoStart :false; ;
+    document.querySelector("#autoStart").checked =(((result.autoStart==undefined)? false:true))? result.autoStart :false; 
   }
 
   function onError(error) {
