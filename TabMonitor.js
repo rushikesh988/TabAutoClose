@@ -21,6 +21,9 @@ function getInfoForTab(tabs) {
   tabs.forEach(element => {
     //console.log(element.title);
     try {
+      if (element.pinned) {
+        continue
+      }
       if((( Date.now()-element.lastAccessed)/(1000*60))>parseInt(noOfMinutesToClose)){
         tabIdsToClose[i]=element.id;
         var titleText=(element.title.length > 30 )? element.title.substring(0, 30)+" ..." : element.title; 
