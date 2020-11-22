@@ -2,11 +2,13 @@
 var isDisabled=true;
 var checkerFunction;
 var noOfMinutesToClose;
+var isNotificationsEnabled;
 browser.browserAction.onClicked.addListener(onButtonClickedFunction);
 browser.browserAction.setIcon({path: browser.extension.getURL("icons/icon200disabled.png")});
 
 //Fetching Settings
 browser.storage.local.get().then(function(result){
+  isNotificationsEnabled=result.noOfMinutesToAutoClose;
   noOfMinutesToClose=result.noOfMinutesToAutoClose || "60";
   if (((result.autoStart==undefined)? false:true)? result.autoStart :false){
     onButtonClickedFunction();
@@ -33,7 +35,7 @@ function getInfoForTab(tabs) {
     }
   });
 
-  if(i>0){
+  if(i>0 && isNotificationsEnabled){
     var closingTabTask=setTimeout(function(){
              //console.log("Closing "+ i + " Tabs" );
               browser.tabs.remove(tabIdsToClose) ;
